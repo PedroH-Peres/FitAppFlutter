@@ -1,33 +1,36 @@
+import 'package:fitapp/pages/homepage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(FitApp());
 }
 
-class FitApp extends StatelessWidget {
+class FitApp extends StatefulWidget {
+
+  @override
+  State<FitApp> createState() => _FitAppState();
+}
+
+class _FitAppState extends State<FitApp> {
+  
+
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'FitApp',
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("HomePage")),
-      body: Container(
-        color: Colors.amber,
-        child: Center(
-          child: Text("Hello World!", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.cyan), ),
-        ),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: Colors.purpleAccent,
+          brightness: themeNotifier.instance.isDarkTheme ? Brightness.dark : Brightness.light,
+          secondary: Colors.blue
+        ) ,
       ),
+      darkTheme: ThemeData.dark(),
+      home: HomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
+
+
