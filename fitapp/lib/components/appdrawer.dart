@@ -15,12 +15,11 @@ class AppDrawer extends StatelessWidget {
             child: DrawerHeader(child: Text("Drawer"))
           ),
           Divider(),
-          Row(
-            children: [
-              Icon(Icons.home),
-              Text("Homepage")
-            ],
-          )
+          ListTile(
+            title: Text("Homepage"),
+            leading: Icon(Icons.home),
+            onTap: () {Navigator.of(context).pop();},
+          ),
         ],
       ),
     );

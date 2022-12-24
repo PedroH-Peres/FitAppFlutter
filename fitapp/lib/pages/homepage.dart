@@ -1,5 +1,6 @@
 import 'package:fitapp/components/appdrawer.dart';
 import 'package:fitapp/main.dart';
+import 'package:fitapp/models/appcontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -26,22 +27,14 @@ class _HomePageState extends State<HomePage> {
             Divider(),
             Text("FIM"),
             TextButton(onPressed: (){
-              themeNotifier.instance.changeTheme();
+              setState(() {
+                AppController.instance.changeTheme();
+              });
             }, child: Text("Mudar"))
           ],
         ),
       ),
       
     );
-  }
-}
-
-class themeNotifier extends ChangeNotifier{
-  static themeNotifier instance = themeNotifier();
-  bool isDarkTheme = false;
-  changeTheme(){
-    isDarkTheme = !isDarkTheme;
-    print("mudou");
-    notifyListeners();
   }
 }
