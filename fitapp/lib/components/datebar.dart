@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -11,24 +13,31 @@ class DateBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final days = List.generate(7, (index){
       DateTime date = DateTime(2022, 12, 25).add(Duration(days: index));
-      return DateFormat(DateFormat.ABBR_WEEKDAY).format(date);
+      return DateFormat(DateFormat.WEEKDAY).format(date);
     });
     print(days);
 
     verifyDay(int index){
-      if(days[index] == DateFormat(DateFormat.ABBR_WEEKDAY).format(DateTime.now())){
-        return Center(child: Text("${days[index]}"),);
+      if(days[index] == DateFormat(DateFormat.WEEKDAY).format(DateTime(2022, 12, 22))){
+        return Center(child: Text("${days[index].toUpperCase()}"),);
       }else{
-        return Center(child: Text("${days[index][0]}"),);
+        return Center(child: Text("${days[index].substring(0, 3).toUpperCase()}"),);
       }
     }
 
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      margin: EdgeInsets.symmetric(horizontal: 28, vertical: 10),
+      padding: EdgeInsets.only(bottom: 7),
+      decoration: BoxDecoration(border: Border.all(width: sqrt1_2)),
       height: 50,
-      child: ListView.builder(
+      child: ListView.separated(
+        separatorBuilder: (ctx, index) {
+          return SizedBox(width: 2,);
+        },
         itemBuilder: (context, index) {
           return Container(
+            padding: EdgeInsets.symmetric(horizontal: 4),
+            margin: EdgeInsets.symmetric(horizontal: 8),
             height: 30,
             decoration: BoxDecoration(border: Border.all(width: 3)),
             child: verifyDay(index)
