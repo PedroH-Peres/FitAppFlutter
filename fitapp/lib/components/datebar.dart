@@ -18,14 +18,42 @@ class DateBar extends StatelessWidget {
     print(days);
 
     verifyDay(int index){
-      if(days[index] == DateFormat(DateFormat.WEEKDAY).format(DateTime(2022, 12, 22))){
+      if(days[index] == DateFormat(DateFormat.WEEKDAY).format(DateTime.now())){
         return Center(child: Text("${days[index].toUpperCase()}"),);
       }else{
         return Center(child: Text("${days[index].substring(0, 3).toUpperCase()}"),);
       }
     }
 
-    return Container(
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for(int i = 0; i < 7; i++)
+          Container(
+            margin: EdgeInsets.all(3),
+            height: 26,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(width: 2),
+              boxShadow: [BoxShadow(
+                          color: Colors.black54,
+                          blurRadius: 15.0,
+                          offset: Offset(0.0, 0.75)
+                      )]
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            child: verifyDay(i),
+          )
+
+        
+      ],
+    );
+    
+  }
+}
+/*Container(
       margin: EdgeInsets.symmetric(horizontal: 28, vertical: 10),
       padding: EdgeInsets.only(bottom: 7),
       decoration: BoxDecoration(border: Border.all(width: sqrt1_2)),
@@ -36,8 +64,8 @@ class DateBar extends StatelessWidget {
         },
         itemBuilder: (context, index) {
           return Container(
-            padding: EdgeInsets.symmetric(horizontal: 4),
-            margin: EdgeInsets.symmetric(horizontal: 8),
+            padding: EdgeInsets.symmetric(horizontal: 7),
+            margin: EdgeInsets.symmetric(horizontal: 4),
             height: 30,
             decoration: BoxDecoration(border: Border.all(width: 3)),
             child: verifyDay(index)
@@ -46,8 +74,5 @@ class DateBar extends StatelessWidget {
         itemCount: days.length,
         scrollDirection: Axis.horizontal,
       ),
-    );
-  }
-}
-
+    );*/
 
