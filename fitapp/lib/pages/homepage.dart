@@ -1,4 +1,5 @@
 import 'package:fitapp/components/appdrawer.dart';
+import 'package:fitapp/components/datebar.dart';
 import 'package:fitapp/main.dart';
 import 'package:fitapp/models/appcontroller.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Widget get teste {
+    return Container(height: 30, color: Colors.blue,);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,20 +24,7 @@ class _HomePageState extends State<HomePage> {
         title: Text("Homepage"),
       ),
       drawer: const AppDrawer(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Text("Página inicial"),
-            Divider(),
-            Text("FIM"),
-            TextButton(onPressed: (){
-              setState(() {
-                AppController.instance.changeTheme();
-              });
-            }, child: Text("Mudar"))
-          ],
-        ),
-      ),
+      body: DateBar()
       
     );
   }
