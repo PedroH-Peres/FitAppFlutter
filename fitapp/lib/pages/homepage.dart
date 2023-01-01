@@ -24,7 +24,12 @@ class _HomePageState extends State<HomePage> {
         title: Text("Homepage"),
       ),
       drawer: const AppDrawer(),
-      body: DateBar()
+      body: Column(
+        children: [
+          DateBar(),
+          Center(child: Text("Teste."),)
+        ],
+      )
       
     );
   }
