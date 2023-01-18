@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
+
 class Exercise {
 
   final String titulo;
   final int? quantidade;
-  final DateTime? tempo;
+  final TimeOfDay? tempo;
 
   Exercise({
     required this.titulo,

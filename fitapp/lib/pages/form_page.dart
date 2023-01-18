@@ -1,8 +1,11 @@
+import 'package:fitapp/core/services/exercise_service.dart';
+import 'package:fitapp/models/exercise.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 
 class FormPage extends StatefulWidget {
   FormPage({super.key});
@@ -21,11 +24,11 @@ class _FormPageState extends State<FormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Adicionar exercício")),
+      appBar: AppBar(title: const Text("Adicionar exercício")),
       body: Column(
         children: [
           Container(
-            margin: EdgeInsets.all(15),
+            margin: const EdgeInsets.all(15),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(7),
                 color: Colors.purpleAccent,
@@ -51,7 +54,7 @@ class _FormPageState extends State<FormPage> {
                       print(value);
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 35,
                   ),
                   Row(
@@ -68,15 +71,22 @@ class _FormPageState extends State<FormPage> {
                           },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 40,
                       ),
                       Expanded(
                         child: Container(
-                          decoration: BoxDecoration(border: Border.all(width: 2), borderRadius: BorderRadius.circular(8)),
+                          decoration: BoxDecoration(
+                              border: Border.all(width: 2),
+                              borderRadius: BorderRadius.circular(8)),
                           child: TextButton(
-                            onPressed: (){showTimePicker(context: context, initialTime: TimeOfDay.now());},
-                            child: Text("Horario: ${timePicked.format(context)}"),
+                            onPressed: () {
+                              showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.now());
+                            },
+                            child:
+                                Text("Horario: ${timePicked.format(context)}"),
                           ),
                         ),
                       ),
@@ -86,14 +96,24 @@ class _FormPageState extends State<FormPage> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           ElevatedButton(
               onPressed: () {
-                print(_titleController.text);
+                Provider.of<ExerciseService>(context, listen: false).addExercise(
+                  Exercise(
+                    titulo: _titleController.text,
+                    quantidade: int.tryParse(_repetitionController.text),
+                    tempo: timePicked,
+                  ),
+                );
+                Navigator.of(context).pop();
+                setState(() {
+                  
+                });
               },
-              child: Text("Confirmar"))
+              child: const Text("Confirmar"))
         ],
       ),
     );

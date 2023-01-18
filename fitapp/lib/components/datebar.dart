@@ -25,32 +25,35 @@ class DateBar extends StatelessWidget {
       
     }
 
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        for(int i = 0; i < 7; i++)
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.all(2),
-              height: 26,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(width: 1),
-                boxShadow: [BoxShadow(
-                            color: Colors.black54,
-                            blurRadius: 15.0,
-                            offset: Offset(0.0, 0.75)
-                        )]
+    return Padding(
+      padding: EdgeInsets.all(5),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for(int i = 0; i < 7; i++)
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.all(2),
+                height: 26,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(width: 1),
+                  /*boxShadow: [BoxShadow(
+                              color: Colors.black54,
+                              blurRadius: 15.0,
+                              offset: Offset(0.0, 0.75)
+                          )]*/
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 2, vertical: 4),
+                child: verifyDay(i),
               ),
-              padding: EdgeInsets.symmetric(horizontal: 2, vertical: 4),
-              child: verifyDay(i),
-            ),
-          )
-    
-        
-      ],
+            )
+      
+          
+        ],
+      ),
     );
     
   }
