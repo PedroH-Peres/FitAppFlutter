@@ -34,10 +34,9 @@ class _HomePageState extends State<HomePage> {
       drawer: const AppDrawer(),
       body: Column(
         children: [
-          SizedBox(height: 10,),
-          DateBar(),
+          Container(child: DateBar(), color: Colors.grey.shade300, padding: EdgeInsets.all(4),),
           Consumer(
-            child: Center(child: Text('???')),
+            child: SizedBox(child: Center(child: Text('Nenhum exercício registrado!')), width: double.infinity, height: 500,),
             builder: ((context, value, child) => exerciseServ.getLength() == 0
                 ? child!
                 : SizedBox(
