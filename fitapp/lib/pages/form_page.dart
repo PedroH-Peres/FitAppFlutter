@@ -82,12 +82,13 @@ class _FormPageState extends State<FormPage> {
                           child: TextButton(
                             onPressed: () {
                               showTimePicker(
-                                  context: context,
-                                    initialTime: TimeOfDay.now()).then((value) {
-                                      setState(() {
-                                        timePicked = value;
-                                      });
-                                    } );
+                                      context: context,
+                                      initialTime: TimeOfDay.now())
+                                  .then((value) {
+                                setState(() {
+                                  timePicked = value;
+                                });
+                              });
                             },
                             child:
                                 Text("Horario: ${timePicked!.format(context)}"),
@@ -105,17 +106,14 @@ class _FormPageState extends State<FormPage> {
           ),
           ElevatedButton(
               onPressed: () {
-                Provider.of<ExerciseService>(context, listen: false).addExercise(
-                  Exercise(
-                    titulo: _titleController.text,
-                    quantidade: int.tryParse(_repetitionController.text),
-                    tempo: timePicked,
-                  ),
+                Provider.of<ExerciseService>(context, listen: false)
+                    .addExercise(
+                  _titleController.text,
+                  int.tryParse(_repetitionController.text)!,
+                  timePicked!,
                 );
                 Navigator.of(context).pop();
-                setState(() {
-                  
-                });
+                setState(() {});
               },
               child: const Text("Confirmar"))
         ],

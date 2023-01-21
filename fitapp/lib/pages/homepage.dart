@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:fitapp/components/appdrawer.dart';
 import 'package:fitapp/components/datebar.dart';
+import 'package:fitapp/core/services/db_util.dart';
 import 'package:fitapp/core/services/exercise_service.dart';
 import 'package:fitapp/main.dart';
 import 'package:fitapp/models/appcontroller.dart';
@@ -45,93 +48,98 @@ class _HomePageState extends State<HomePage> {
           Divider(
             color: Colors.grey.shade400,
           ),
-          Consumer(
-            child: Expanded(
-              child: Center(child: Text('Nenhum exercício registrado!')),
-            ),
-            builder: ((context, value, child) => exerciseServ.getLength() == 0
-                ? child!
-                : Expanded(
-                    child: SizedBox(
-                      child: ListView.builder(
-                        itemCount: exerciseServ.getLength(),
-                        itemBuilder: ((context, index) => Card(
-                              child: ListTile(
-                                subtitle: Text(exerciseServ
-                                    .itemByIndex(index)
-                                    .quantidade
-                                    .toString()),
-                                leading: Text(exerciseServ
-                                    .itemByIndex(index)
-                                    .tempo!
-                                    .format(context)),
-                                title: Text(
-                                    exerciseServ.itemByIndex(index).titulo),
-                                trailing: PopupMenuButton(
-                                  icon: const Icon(Icons.more_vert),
-                                  itemBuilder: (_) => [
-                                    PopupMenuItem(
-                                      value: 1,
-                                      child: Row(children: [
-                                        Icon(
-                                          Icons.edit,
-                                          size: 18,
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text('Editar')
-                                      ]),
-                                    ),
-                                    PopupMenuItem(
-                                      value: 2,
-                                      child: Row(children: [
-                                        Icon(
-                                          Icons.delete,
-                                          size: 18,
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text('Remover')
-                                      ]),
-                                    ),
-                                  ],
-                                  onSelected: (value) {
-                                    if (value == 1) {
-                                    } else if (value == 2) {
-                                      showDialog(
-                                        context: context,
-                                        builder: ((context) => AlertDialog(
-                                              title: Text("Confirmar"),
-                                              content: Text(
-                                                  "Deseja remover este exercício?"),
-                                              actions: [
-                                                TextButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: Text("Cancelar")),
-                                                TextButton(
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        exerciseServ
-                                                            .removeItem(index);
-                                                      });
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: Text("Confirmar"))
-                                              ],
-                                            )),
-                                      );
-                                    }
-                                  },
+          FutureBuilder(
+            future: Provider.of<ExerciseService>(context, listen: false).loadPlaces(),
+            builder: (context, snapshot) => snapshot.connectionState == ConnectionState.waiting
+            ? Center(child: CircularProgressIndicator(),)
+            : Consumer(
+              child: Expanded(
+                child: Center(child: Text('Nenhum exercício registrado!')),
+              ),
+              builder: ((context, value, child) => exerciseServ.getLength() == 0
+                  ? child!
+                  : Expanded(
+                      child: SizedBox(
+                        child: ListView.builder(
+                          itemCount: exerciseServ.getLength(),
+                          itemBuilder: ((context, index) => Card(
+                                child: ListTile(
+                                  subtitle: Text(exerciseServ
+                                      .itemByIndex(index)
+                                      .quantidade
+                                      .toString()),
+                                  leading: Text(exerciseServ
+                                      .itemByIndex(index)
+                                      .tempo!
+                                      .format(context)),
+                                  title: Text(
+                                      exerciseServ.itemByIndex(index).titulo),
+                                  trailing: PopupMenuButton(
+                                    icon: const Icon(Icons.more_vert),
+                                    itemBuilder: (_) => [
+                                      PopupMenuItem(
+                                        value: 1,
+                                        child: Row(children: [
+                                          Icon(
+                                            Icons.edit,
+                                            size: 18,
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text('Editar')
+                                        ]),
+                                      ),
+                                      PopupMenuItem(
+                                        value: 2,
+                                        child: Row(children: [
+                                          Icon(
+                                            Icons.delete,
+                                            size: 18,
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text('Remover')
+                                        ]),
+                                      ),
+                                    ],
+                                    onSelected: (value) {
+                                      if (value == 1) {
+                                      } else if (value == 2) {
+                                        showDialog(
+                                          context: context,
+                                          builder: ((context) => AlertDialog(
+                                                title: Text("Confirmar"),
+                                                content: Text(
+                                                    "Deseja remover este exercício?"),
+                                                actions: [
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Text("Cancelar")),
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          exerciseServ
+                                                              .removeItem(index).then((value) => Navigator.of(context).pop());
+                                                        });
+                                                        
+                                                      },
+                                                      child: Text("Confirmar"))
+                                                ],
+                                              )),
+                                        );
+                                      }
+                                    },
+                                  ),
                                 ),
-                              ),
-                            )),
+                              )),
+                        ),
                       ),
-                    ),
-                  )),
+                    )),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(20),
@@ -149,6 +157,12 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
+      /*floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: (){
+          print(DbUtil.getData('exercises'));
+        },
+      ),*/
     );
   }
 }
