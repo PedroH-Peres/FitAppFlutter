@@ -19,7 +19,7 @@ class _FormPageState extends State<FormPage> {
 
   final _repetitionController = TextEditingController();
 
-  TimeOfDay timePicked = TimeOfDay.now();
+  TimeOfDay? timePicked = TimeOfDay.now();
 
   @override
   Widget build(BuildContext context) {
@@ -83,10 +83,14 @@ class _FormPageState extends State<FormPage> {
                             onPressed: () {
                               showTimePicker(
                                   context: context,
-                                  initialTime: TimeOfDay.now());
+                                    initialTime: TimeOfDay.now()).then((value) {
+                                      setState(() {
+                                        timePicked = value;
+                                      });
+                                    } );
                             },
                             child:
-                                Text("Horario: ${timePicked.format(context)}"),
+                                Text("Horario: ${timePicked!.format(context)}"),
                           ),
                         ),
                       ),

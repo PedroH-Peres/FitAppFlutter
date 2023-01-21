@@ -18,11 +18,7 @@ class DateBar extends StatelessWidget {
     print(days);
 
     verifyDay(int index){
-      if(days[index] == DateFormat(DateFormat.WEEKDAY).format(DateTime.now())){
-        return Center(child: Text("${days[index].substring(0, 3).toUpperCase()}"),);
-      }else{
-        return Center(child: Text("${days[index].substring(0, 3).toUpperCase()}"),);
-      }
+      return Center(child: Text("${days[index].substring(0, 3).toUpperCase()}", style: TextStyle(color: Colors.black),),);
     }
 
     isToday(int index){
@@ -46,7 +42,7 @@ class DateBar extends StatelessWidget {
                 margin: EdgeInsets.all(2),
                 height: 26,
                 decoration: BoxDecoration(
-                  color: isToday(i) ? Colors.blue.shade300 : Colors.white,
+                  color: isToday(i) ? Colors.purpleAccent.shade100 : Colors.white,
                   border: Border.all(width: 1),
                   /*boxShadow: [BoxShadow(
                               color: Colors.black54,
