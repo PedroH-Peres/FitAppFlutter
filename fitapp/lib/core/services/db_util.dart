@@ -8,7 +8,7 @@ class DbUtil{
     var databasePath = await getDatabasesPath();
     String path = join(databasePath, 'database.db');
     return openDatabase(path,  version: 1, onCreate: (db, version) async {
-      await db.execute('CREATE TABLE exercises (id TEXT PRIMARY KEY, title TEXT, repetition INTEGER, time TEXT)');
+      await db.execute('CREATE TABLE exercises (id TEXT PRIMARY KEY, title TEXT, repetition INTEGER, time TEXT, weekday TEXT)');
     },);
   }
 

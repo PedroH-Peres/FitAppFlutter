@@ -1,3 +1,4 @@
+import 'package:fitapp/components/DropDownButton.dart';
 import 'package:fitapp/core/services/exercise_service.dart';
 import 'package:fitapp/models/exercise.dart';
 import 'package:flutter/cupertino.dart';
@@ -85,8 +86,8 @@ class _FormPageState extends State<FormPage> {
                                       context: context,
                                       initialTime: TimeOfDay.now())
                                   .then((value) {
-                                setState(() {       
-                                  timePicked = value ?? timePicked;                              
+                                setState(() {
+                                  timePicked = value ?? timePicked;
                                 });
                               });
                             },
@@ -104,6 +105,9 @@ class _FormPageState extends State<FormPage> {
           const SizedBox(
             height: 20,
           ),
+          //DropDownButton
+          DropDownButtonWidget(),
+          SizedBox(height: 15),
           ElevatedButton(
               onPressed: () {
                 Provider.of<ExerciseService>(context, listen: false)
@@ -111,9 +115,13 @@ class _FormPageState extends State<FormPage> {
                   _titleController.text,
                   int.tryParse(_repetitionController.text)!,
                   timePicked,
+                  DropDownButtonWidget.ddvalue
                 );
                 Navigator.of(context).pop();
-                setState(() {});
+                setState(() {
+                  Provider.of<ExerciseService>(context, listen: false).todayItems();
+                });
+                print('${DropDownButtonWidget.ddvalue} e ${_titleController.text}');
               },
               child: const Text("Confirmar"))
         ],
