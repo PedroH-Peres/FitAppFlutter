@@ -19,7 +19,7 @@ class _FormPageState extends State<FormPage> {
 
   final _repetitionController = TextEditingController();
 
-  TimeOfDay? timePicked = TimeOfDay.now();
+  TimeOfDay timePicked = TimeOfDay.now();
 
   @override
   Widget build(BuildContext context) {
@@ -85,13 +85,13 @@ class _FormPageState extends State<FormPage> {
                                       context: context,
                                       initialTime: TimeOfDay.now())
                                   .then((value) {
-                                setState(() {
-                                  timePicked = value;
+                                setState(() {       
+                                  timePicked = value ?? timePicked;                              
                                 });
                               });
                             },
                             child:
-                                Text("Horario: ${timePicked!.format(context)}"),
+                                Text("Horario: ${timePicked.format(context)}"),
                           ),
                         ),
                       ),
@@ -110,7 +110,7 @@ class _FormPageState extends State<FormPage> {
                     .addExercise(
                   _titleController.text,
                   int.tryParse(_repetitionController.text)!,
-                  timePicked!,
+                  timePicked,
                 );
                 Navigator.of(context).pop();
                 setState(() {});

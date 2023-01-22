@@ -38,12 +38,10 @@ class _HomePageState extends State<HomePage> {
       drawer: const AppDrawer(),
       body: Column(
         children: [
-          SizedBox(
-            height: 8,
-          ),
+          const SizedBox(height: 8),
           Container(
             child: DateBar(),
-            padding: EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
           ),
           Divider(
             color: Colors.grey.shade400,
@@ -63,73 +61,40 @@ class _HomePageState extends State<HomePage> {
                         child: ListView.builder(
                           itemCount: exerciseServ.getLength(),
                           itemBuilder: ((context, index) => Card(
-                                child: ListTile(
-                                  subtitle: Text(exerciseServ
-                                      .itemByIndex(index)
-                                      .quantidade
-                                      .toString()),
-                                  leading: Text(exerciseServ
-                                      .itemByIndex(index)
-                                      .tempo!
-                                      .format(context)),
-                                  title: Text(
-                                      exerciseServ.itemByIndex(index).titulo),
+                                 child: ListTile(
+                                  subtitle: Text(exerciseServ.itemByIndex(index).quantidade.toString()),
+                                  leading: Text(exerciseServ.itemByIndex(index).tempo!.format(context)),
+                                  title: Text(exerciseServ.itemByIndex(index).titulo),
                                   trailing: PopupMenuButton(
                                     icon: const Icon(Icons.more_vert),
                                     itemBuilder: (_) => [
                                       PopupMenuItem(
                                         value: 1,
-                                        child: Row(children: [
-                                          Icon(
-                                            Icons.edit,
-                                            size: 18,
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text('Editar')
-                                        ]),
-                                      ),
-                                      PopupMenuItem(
-                                        value: 2,
-                                        child: Row(children: [
-                                          Icon(
-                                            Icons.delete,
-                                            size: 18,
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
+                                        child: Row(children: const [
+                                          Icon(Icons.delete,size: 18,),
+                                          SizedBox(width: 5,),
                                           Text('Remover')
                                         ]),
                                       ),
                                     ],
                                     onSelected: (value) {
                                       if (value == 1) {
-                                      } else if (value == 2) {
                                         showDialog(
                                           context: context,
                                           builder: ((context) => AlertDialog(
-                                                title: Text("Confirmar"),
-                                                content: Text(
-                                                    "Deseja remover este exercício?"),
-                                                actions: [
-                                                  TextButton(
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: Text("Cancelar")),
-                                                  TextButton(
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          exerciseServ
-                                                              .removeItem(index).then((value) => Navigator.of(context).pop());
-                                                        });
-                                                        
-                                                      },
-                                                      child: Text("Confirmar"))
-                                                ],
-                                              )),
+                                            title: Text("Confirmar"),
+                                            content: Text("Deseja remover este exercício?"),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(context),
+                                                child: Text("Cancelar")),
+                                              TextButton(
+                                                onPressed: () {
+                                                setState(() {exerciseServ.removeItem(index).then((value) => Navigator.of(context).pop());});
+                                                },
+                                                child: Text("Confirmar"))
+                                            ],
+                                          )),
                                         );
                                       }
                                     },
