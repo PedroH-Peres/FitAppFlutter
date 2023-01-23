@@ -132,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                               child: Text('Nenhum exercício registrado!')),
                         ),
                         builder: ((context, value, child) =>
-                            exerciseServ.getLength() == 0
+                            exerciseServ.getTodayItems.length == 0
                                 ? child!
                                 : Expanded(
                                     child: SizedBox(
