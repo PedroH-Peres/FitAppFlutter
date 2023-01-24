@@ -1,4 +1,5 @@
 import 'package:fitapp/models/appcontroller.dart';
+import 'package:fitapp/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -12,13 +13,20 @@ class AppDrawer extends StatelessWidget {
     return Drawer(
       child: Column(
         children: [
-          SizedBox(height: 70, child: DrawerHeader(child: Text("Drawer"))),
-          Divider(),
+          SizedBox(child: DrawerHeader(child: Text("Fit App")), height: 90,),
           ListTile(
             title: Text("Homepage"),
             leading: Icon(Icons.home),
             onTap: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pushReplacementNamed(UtilRoutes.home_page);
+            },
+          ),
+          Divider(),
+          ListTile(
+            title: Text("Overview"),
+            leading: Icon(Icons.list),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(UtilRoutes.overview_page);
             },
           ),
           Divider(),

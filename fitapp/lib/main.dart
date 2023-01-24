@@ -1,6 +1,8 @@
 import 'package:fitapp/core/services/exercise_service.dart';
 import 'package:fitapp/models/appcontroller.dart';
+import 'package:fitapp/pages/exercise_list_overview.dart';
 import 'package:fitapp/pages/homepage.dart';
+import 'package:fitapp/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
@@ -43,6 +45,10 @@ class FitApp extends StatelessWidget {
             darkTheme: ThemeData.dark(),
             home: HomePage(),
             debugShowCheckedModeBanner: false,
+            routes: {
+              '/overview':(context) => ExerciseOverview(),
+              '/home':((context) => HomePage())
+            },
           ),
         );
       }),

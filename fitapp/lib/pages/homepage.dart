@@ -135,86 +135,88 @@ class _HomePageState extends State<HomePage> {
                             exerciseServ.getTodayItems.length == 0
                                 ? child!
                                 : Expanded(
-                                    child: SizedBox(
-                                        child: ListView.builder(
-                                      itemCount: exerciseServ.getLength(),
-                                      itemBuilder: ((context, index) {
-                                        bool _isEmpty = false;
-                                        bool showCh = false;
-                                        return exerciseServ
-                                                    .itemByIndex(index)
-                                                    .weekDay ==
-                                                HomePage.selectedDay
-                                            ? Card(
-                                                child: ListTile(
-                                                  subtitle: Text(exerciseServ
+                                    child: SafeArea(
+                                      child: SizedBox(
+                                          child: ListView.builder(
+                                        itemCount: exerciseServ.getLength(),
+                                        itemBuilder: ((context, index) {
+                                          bool _isEmpty = false;
+                                          bool showCh = false;
+                                          return exerciseServ
                                                       .itemByIndex(index)
-                                                      .quantidade
-                                                      .toString()),
-                                                  leading: Text(exerciseServ
-                                                      .itemByIndex(index)
-                                                      .tempo!
-                                                      .format(context)),
-                                                  title: Text(exerciseServ
-                                                      .itemByIndex(index)
-                                                      .titulo
-                                                      .toString()),
-                                                  trailing: PopupMenuButton(
-                                                    icon: const Icon(
-                                                        Icons.more_vert),
-                                                    itemBuilder: (_) => [
-                                                      PopupMenuItem(
-                                                        value: 1,
-                                                        child: Row(
-                                                            children: const [
-                                                              Icon(
-                                                                Icons.delete,
-                                                                size: 18,
-                                                              ),
-                                                              SizedBox(
-                                                                width: 5,
-                                                              ),
-                                                              Text('Remover')
-                                                            ]),
-                                                      ),
-                                                    ],
-                                                    onSelected: (value) {
-                                                      if (value == 1) {
-                                                        showDialog(
-                                                          context: context,
-                                                          builder:
-                                                              ((context) =>
-                                                                  AlertDialog(
-                                                                    title: Text(
-                                                                        "Confirmar"),
-                                                                    content: Text(
-                                                                        "Deseja remover este exercício?"),
-                                                                    actions: [
-                                                                      TextButton(
-                                                                          onPressed: () => Navigator.pop(
-                                                                              context),
-                                                                          child:
-                                                                              Text("Cancelar")),
-                                                                      TextButton(
-                                                                          onPressed:
-                                                                              () {
-                                                                            setState(() {
-                                                                              exerciseServ.removeItem(index).then((value) => Navigator.of(context).pop());
-                                                                            });
-                                                                          },
-                                                                          child:
-                                                                              Text("Confirmar"))
-                                                                    ],
-                                                                  )),
-                                                        );
-                                                      }
-                                                    },
+                                                      .weekDay ==
+                                                  HomePage.selectedDay
+                                              ? Card(
+                                                  child: ListTile(
+                                                    subtitle: Text("Repetições: ${exerciseServ
+                                                        .itemByIndex(index)
+                                                        .quantidade
+                                                        .toString()}"),
+                                                    leading: Text(exerciseServ
+                                                        .itemByIndex(index)
+                                                        .tempo!
+                                                        .format(context)),
+                                                    title: Text(exerciseServ
+                                                        .itemByIndex(index)
+                                                        .titulo
+                                                        .toString()),
+                                                    trailing: PopupMenuButton(
+                                                      icon: const Icon(
+                                                          Icons.more_vert),
+                                                      itemBuilder: (_) => [
+                                                        PopupMenuItem(
+                                                          value: 1,
+                                                          child: Row(
+                                                              children: const [
+                                                                Icon(
+                                                                  Icons.delete,
+                                                                  size: 18,
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 5,
+                                                                ),
+                                                                Text('Remover')
+                                                              ]),
+                                                        ),
+                                                      ],
+                                                      onSelected: (value) {
+                                                        if (value == 1) {
+                                                          showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                ((context) =>
+                                                                    AlertDialog(
+                                                                      title: Text(
+                                                                          "Confirmar"),
+                                                                      content: Text(
+                                                                          "Deseja remover este exercício?"),
+                                                                      actions: [
+                                                                        TextButton(
+                                                                            onPressed: () => Navigator.pop(
+                                                                                context),
+                                                                            child:
+                                                                                Text("Cancelar")),
+                                                                        TextButton(
+                                                                            onPressed:
+                                                                                () {
+                                                                              setState(() {
+                                                                                exerciseServ.removeItem(index).then((value) => Navigator.of(context).pop());
+                                                                              });
+                                                                            },
+                                                                            child:
+                                                                                Text("Confirmar"))
+                                                                      ],
+                                                                    )),
+                                                          );
+                                                        }
+                                                      },
+                                                    ),
                                                   ),
-                                                ),
-                                              )
-                                            : SizedBox();
-                                      }),
-                                    )),
+                                                )
+                                              : SizedBox();
+                                        }),
+                                      )),
+                                    ),
                                   )),
                       ),
           ),
